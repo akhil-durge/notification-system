@@ -42,9 +42,9 @@ D. Notification Generator setup:
 	2. Open file 'config/db.ini' and set DB credentials and server details here.
 	3. Run 'NotifGenerator.php' using command:
 		php NotifGenerator.php
-		
-	This script generates a notification using pre-defined set of notifications 
-	in random order for a pre-defined user, from a pre-defined user and pushes it to DB.
-	The pre-defined notifications, to-user, from-user can found at location 'constants/Constants.php'.
+
+This script generates a notification using pre-defined set of notifications 
+in random order for a pre-defined user, from a pre-defined user and pushes it to DB.
+The pre-defined notifications, to-user, from-user can found at location 'constants/Constants.php'.
 	
-	The UI then fetches data from DB at regular interval and you can observe near-to-real-time notifications on UI.
+The UI then fetches data from DB at regular interval and you can observe near-to-real-time notifications on UI.
