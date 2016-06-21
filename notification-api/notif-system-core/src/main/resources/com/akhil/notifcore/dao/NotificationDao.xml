@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.akhil.notifcore.dao.NotificationDao">
+	<resultMap id="userNotifications" type="com.akhil.notifcore.beans.UserNotification">
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="status" property="status" />
+		<result column="message" property="message" />
+		<result column="creation_time" property="creationTime" />
+		<result column="modification_time" property="modificationTime" />
+		<association property="fromUser" resultMap="userMap" />
+	</resultMap>
+
+	<resultMap id="userMap" type="com.akhil.notifcore.beans.User">
+		<result column="from_user_id" property="id" />
+		<result column="fname" property="firstName" />
+		<result column="lname" property="lasteName" />
+		<result column="email" property="email" />
+		<result column="dp_path" property="dpPath" />
+	</resultMap>
+
+	<select id="getNotifications" resultMap="userNotifications">
+		select m.id, user_id , message, status, fname, lname,
+		dp_path,
+		creation_time, modification_time from messages m
+		join user u on
+		m.from_user_id=u.id and
+		user_id=#{userId} order by
+		creation_time desc
+		<if test="noOfRecords != -1">
+			limit #{noOfRecords}
+		</if>
+	</select>
+
+	<select id="getTotalUnreadRecords" resultType="java.lang.Long">
+		select count(*)
+		from messages where status='UNREAD' and user_id=#{userId}
+	</select>
+
+	<update id="markNotificationsAsRead">
+		update messages set status='READ' where
+		user_id=#{userId}
+	</update>
+</mapper>
