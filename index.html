@@ -1,0 +1,115 @@
+<!doctype html>
+<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
+<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on https://github.com/jonrohan -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen">
+  <link rel="stylesheet" href="stylesheets/github-dark.css">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/script.js"></script>
+
+  <title>Notification-system</title>
+  <meta name="description" content="This project contains all modules which are necessary for running a sample notification system.">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <header>
+      <h1 class="title">Notification-system</h1>
+    </header>
+    <div id="container">
+      <p class="tagline">This project contains all modules which are necessary for running a sample notification system.</p>
+      <div id="main" role="main">
+        <div class="download-bar">
+        <div class="inner">
+          <a href="https://github.com/akhil-durge/notification-system/tarball/master" class="download-button tar"><span>Download</span></a>
+          <a href="https://github.com/akhil-durge/notification-system/zipball/master" class="download-button zip"><span>Download</span></a>
+          <a href="https://github.com/akhil-durge/notification-system" class="code">View Notification-system on GitHub</a>
+        </div>
+        <span class="blc"></span><span class="trc"></span>
+        </div>
+        <article class="markdown-body">
+          <p>This project contains all modules which are necessary for running a sample notification system.</p>
+
+<p>This section explains how to setup different modules in this Notification system.</p>
+
+<h3>
+<a id="pre-requisites" class="anchor" href="#pre-requisites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pre-requisites:</h3>
+
+<ol>
+<li>jdk1.8 </li>
+<li>apache-tomcat-7 </li>
+<li>MySQL Server 5.6 </li>
+<li>php5 with mysql package </li>
+<li>internet connectivity</li>
+</ol>
+
+<h3>
+<a id="a-database-setup" class="anchor" href="#a-database-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>A. Database setup:</h3>
+
+<p>Attached zip has a DB schema file 'db/notifier.sql'. Create database 'notifier' and source this schema to MySql server using following command: mysql -u -p notifier &lt; notifier.sql</p>
+
+<h3>
+<a id="b-notification-rest-api-setup" class="anchor" href="#b-notification-rest-api-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>B. Notification REST API setup:</h3>
+
+<ol>
+<li>Attached zip has a directory 'notification-api/', go to that directory and run following command: mvn clean install -DskipTests </li>
+<li>Copy generated war to tomcat's 'webapps' directory using command: cp notif-system-service/target/notification-api.war /webapps/ </li>
+<li>Copy properties file to tomcat's 'lib' using command: cp app-resources/notif-system.properties /lib/ </li>
+<li>Open /lib/notif-system.properties and set MySql credentials and connection URL. </li>
+<li>Go to /bin directory and run following command: sudo sh catalina.sh start </li>
+<li>Run below command to open log file in tail mode. You can check all the logs here when using notificaion-api: tailf /var/log/notification-service.log</li>
+</ol>
+
+<h3>
+<a id="c-ui-setup" class="anchor" href="#c-ui-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>C. UI setup:</h3>
+
+<ol>
+<li>Attached zip has a directory 'ui/'. Copy all contents of this directory to /webapps/ROOT/ using command: cp -rf ui/* /webapps/ROOT/ </li>
+<li>Open this link in browser 'http://localhost:8080/notif.html'. Change port as per your tomcat setup.</li>
+</ol>
+
+<p>Till this point you should be able to see the UI with clickable bell and notification-count. Now follow below part to generate and push notifications to DB.</p>
+
+<h3>
+<a id="d-notification-generator-setup" class="anchor" href="#d-notification-generator-setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>D. Notification Generator setup:</h3>
+
+<ol>
+<li>Attached zip has a directory 'notification-generator/', go to that directory. </li>
+<li>Open file 'config/db.ini' and set DB credentials and server details here. </li>
+<li>Run 'NotifGenerator.php' using command: php NotifGenerator.php</li>
+</ol>
+
+<p>This script generates a notification using pre-defined set of notifications in random order for a pre-defined user, from a pre-defined user and pushes it to DB. The pre-defined notifications, to-user, from-user can found at location 'constants/Constants.php'.</p>
+
+<p>The UI then fetches data from DB at regular interval and you can observe near-to-real-time notifications on UI.</p>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="owner">
+      <p><a href="https://github.com/akhil-durge" class="avatar"><img src="https://avatars1.githubusercontent.com/u/1094763?v=3&amp;s=60" width="48" height="48"></a> <a href="https://github.com/akhil-durge">akhil-durge</a> maintains <a href="https://github.com/akhil-durge/notification-system">Notification-system</a></p>
+
+
+      </div>
+      <div class="creds">
+        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
+      </div>
+    </footer>
+  </div>
+  <div class="current-section">
+    <a href="#top">Scroll to top</a>
+    <a href="https://github.com/akhil-durge/notification-system/tarball/master" class="tar">tar</a><a href="https://github.com/akhil-durge/notification-system/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+    <p class="name"></p>
+  </div>
+
+  
+</body>
+</html>
